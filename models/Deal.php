@@ -34,7 +34,9 @@ class Deal extends \yii\db\ActiveRecord
     {
         return [
             [['add_id', 'user_id', 'isConfirmed'], 'integer'],
-            [['from', 'till'], 'safe'],
+            //[['from', 'till'], 'safe'],
+            [['from', 'till'], 'date', 'format' =>'php:Y-m-d'],
+            [['from', 'till'], 'default', 'value' => date('Y-m-d')],
             [['add_id'], 'exist', 'skipOnError' => true, 'targetClass' => Add::className(), 'targetAttribute' => ['add_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
