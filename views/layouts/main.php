@@ -32,22 +32,26 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-default navbar-fixed-top',
+            'id' => 'menu',
         ],
     ]);
+    $p = [['label' => 'Білборди', 'url' => '#'],
+    ['label' => 'Зупинки', 'url' => '#']];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Головна', 'url' => ['/site/index']],
+            ['label' => 'Площини',
+             'items' => $p
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/auth/login']]
+                ['label' => 'Увійти', 'url' => ['/auth/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Вийти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -58,7 +62,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid" id = 'main'>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
