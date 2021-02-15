@@ -11,6 +11,7 @@ use yii\web\IdentityInterface;
  * @property string|null $name
  * @property string|null $surname
  * @property string|null $email
+ * @property string|null $phone
  * @property string|null $password
  * @property int|null $type
  * @property string|null $photo
@@ -36,6 +37,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['type'], 'integer'],
             [['name', 'surname', 'email', 'password', 'photo'], 'string', 'max' => 255],
+            [['phone'],'string','max'=>12],
         ];
     }
 
@@ -46,12 +48,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'surname' => 'Surname',
-            'email' => 'Email',
-            'password' => 'Password',
-            'type' => 'Type',
-            'photo' => 'Photo',
+            'name' => 'Ім\'я',
+            'surname' => 'Прізвище',
+            'email' => 'Електронна пошта',
+            'password' => 'Пароль',
+            'phone' => 'Телефон',
+            'type' => 'Тип',
+            'photo' => 'Фото',
         ];
     }
 

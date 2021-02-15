@@ -14,7 +14,9 @@ use yii\base\Model;
 class SignupForm extends Model
 {
     public $name;
+    public $surname;
     public $email;
+    public $phone;
     public $password;
     /**
      * @return array the validation rules.
@@ -23,9 +25,9 @@ class SignupForm extends Model
     {
         return [
             // username and password are both required
-            [['name', 'email', 'password'], 'required'],
+            [['name', 'surname', 'email', 'phone', 'password'], 'required','message'=>'Поле має бути заповнене'],
             // rememberMe must be a boolean value
-            [['name'], 'string'],
+            [['name','surname','phone'], 'string'],
             // password is validated by validatePassword()
             [['email'], 'email'],
             [['email'],'unique','targetClass' => 'app\models\User', 'targetAttribute'=>'email']
@@ -41,5 +43,16 @@ class SignupForm extends Model
         $user->attributes = $this->attributes;
         return $user->create();
       }
+    }
+
+    public function attributeLabels() //Поля для формы
+    {
+        return [
+            'name'=>'Ім\'я',
+            'surname'=>'Прізвище',
+            'email' => 'Електронна пошта',
+            'phone'=>'Телефон',
+            'password' => 'Пароль',
+        ];
     }
 }

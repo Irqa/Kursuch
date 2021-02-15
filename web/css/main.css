@@ -148,6 +148,146 @@ h3:hover{
 
   text-shadow: 0 0 15px rgba(196, 89, 70,1);
 }
+.center{
+  display: flex;
+  min-height: 100%;
+  height: auto;
+  justify-content: center;
+  /* margin: auto auto auto auto; */
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+/* Forms */
+
+.form-content{
+  background-color: #fff8d1;
+  box-shadow: 0 0 25px rgba(196, 89, 70,1);
+  justify-content: center;
+  align-self: center;
+  padding-bottom: 20px;
+  border-radius: 5%;
+}
+.container.align-self-center{
+  position: absolute;
+  bottom:0;
+  top:50px;
+  right:0;
+  left:0;
+  justify-content: center;
+}
+.test{
+  height: 100px;
+  background-color: red;
+  align-self: center;
+}
+.btn.col-12{
+  min-width: 100%;
+  width: auto;
+  text-align: center;
+  background-color: #f23c0e;
+  border-color: #c92e08;
+}
+.btn.col-12:hover{
+  background-color: #e80b00;
+  border-color: #9e2206;
+  color: #ffdda3;
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease;
+}
+.sign{
+  color: #f23c0e;
+  float: right;
+  margin-top: 1.5pt;
+}
+.sign:hover{
+  color:#9e2206;
+}
+
+/* Item Page */
+.photo{
+  overflow-y: hidden;
+  overflow-x: hidden;
+  /* max-height: 500px;*/
+  height: 100%;
+}
+.item-image{
+  width: 100%
+}
+
+.pad{
+  margin-top: 10px;
+}
+
+/* Owner MyPage */
+.item{
+  /* position: relative; */
+  display: flex;
+
+  justify-content: space-between;
+
+  flex-direction: column;
+  min-height: 350px;
+  max-height: 350px;
+  overflow-y: hidden;
+  margin-bottom: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  padding-top: 15px;
+
+  background-color: #fcf7d6;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255, 160, 112, 0);
+  border-radius: 15px;
+
+  box-shadow: 0 0 10px rgba(255, 160, 112, 0.5);
+}
+
+.item:hover{
+  background-color: #fff;
+
+  box-shadow: 0 0 15px rgba(219, 137, 96, 1);
+
+  transition: box-shadow 0.2s ease-in-out,
+              background-color 0.2s ease-in-out;
+}
+
+.item>img{
+  min-height: 50%;
+  max-height: 50%;
+  max-width: 100%;
+  /* overflow-x: hidden; */
+}
+
+/* Place deal Page */
+
+.orderers{
+  margin-top: 30px;
+}
+
+.orderer{
+  border-bottom: solid black 1px;
+  padding-left: 20px;
+  display: flex;
+
+  justify-content: space-between;
+
+}
+.orderer>div>p{
+  display: inline-block;
+}
+
+.dealc{
+  background-color: #fff8d1;
+  justify-content: center;
+  align-self: center;
+  padding-bottom: 20px;
+  border-radius: 5%;
+}
 /* Slider */
 /* body {
       margin: 0;
