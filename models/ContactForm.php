@@ -12,9 +12,9 @@ class ContactForm extends Model
 {
     public $name;
     public $email;
-    public $subject;
+    public $phone;
     public $body;
-    public $verifyCode;
+    public $uid;
 
 
     /**
@@ -24,11 +24,11 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            [['name', 'email', 'phone'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            // ['verifyCode', 'captcha'],
         ];
     }
 
@@ -38,8 +38,23 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => 'Ім\'я',
+            'email' => 'Електронна пошта',
+            'phone' => 'Телефон'
+            // 'verifyCode' => 'Verification Code',
         ];
+    }
+
+    public function sendForm($aid,$uid = null)
+    {
+          $order = new Deal();
+          $order->add_id = $aid;
+          $order->user_id = $uid;
+          $order->name = $this->name;
+          $order->email = $this->email;
+          $order->phone = $this->phone;
+          $order->isConfirmed=0;
+          return $order->save();
     }
 
     /**

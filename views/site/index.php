@@ -1,21 +1,23 @@
 <?php
 use yii\bootstrap\Carousel;
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
 $carousel = [
   [
-    'content' => '<img src="/photo/concrete.jpg" />',
+    'content' => '<img src="/photo/bg.jpg" />',
     'caption' => '',
     'options' => [],
   ],
   [
-    'content' => '<img src="/photo/dio.jpg" />',
+    'content' => '<img src="/photo/slider2.jpg" />',
     'caption' => '',
     'options' => [],
   ],
   [
-    'content' => '<img src="/photo/jojo.jpg" />',
+    'content' => '<img src="/photo/slider3.jpg" />',
     'caption' => '',
     'options' => [],
   ],
@@ -35,59 +37,39 @@ $carousel = [
 
         <div class="row">
             <div class="col-12">
-                <h2>Heading</h2>
+                <h2>Зовнішня реклама</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Зовнішня реклама — реклама, розміщена на вулицях, на фасаді будівлі фірми-рекламодавця (вітрина тощо), а також на транспорті. Один з найефективніших рекламних носіїв. При порівняно низьких витратах рекламний продукт піднімає свій рейтинг до дуже високого рівня, охоплюючи свою аудиторію багато разів за короткий проміжок часу. Зовнішня реклама є найбільш видовищною з усіх засобів реклами. Крім цього, в зовнішній рекламі використовується світло, анімація і будь-які фарби. І нарешті, тоді як інші засоби реклами повинні шукати свій шлях до споживача, зовнішня реклама впливає на людей в крамницях, на роботі і на відпочинку, вдень і вночі, збільшуючи прибуток від продажу рекламованих товарів.</p>
 
             </div>
         </div>
-        <div class="row">
-            <a href="#">
-                <h3>Категорія</h3>
-            </a>
-        </div>
-        <div class="row">
-          <a href="#">
-            <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
-                <div class="container-fluid" id='item'>
-                    <img src="/photo/jojo.jpg" alt="">
-                    <p class="adress">Кам'янецька, 74</p>
-                    <p class="free">вільна</p>
+        <?php foreach ($types as $type): ?>
+          <div class="row">
+              <a href="<?= Url::toRoute(['/site/category', 'id'=>$type->id]);?>">
+                  <h3><?=$type->name?></h3>
+              </a>
+          </div>
+          <div class="row">
+            <?php foreach ($categories[$type->name] as $item): ?>
+              <a href="<?= Url::toRoute(['/site/contact', 'id'=>$item->id]);?>">
+                <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
+                    <div class="container-fluid" id='item'>
+                        <img src="<?=$item->getImage()?>" alt="">
+                        <p class="adress"><?=$item->adress?></p>
+                        <?php if ($item->is_ordered == 0): ?>
+                          <p class="free">вільна</p>
+                          <?php else: ?>
+                          <p class="non-free">зайнята</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            </div>
-          </a>
-          <a href="#">
-            <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-                <div class="container-fluid" id='item'>
-                    <img src="/photo/dio.jpg" alt="">
-                    <p class="adress">Маршала Рибалка, 2а</p>
-                    <p class="free">вільна</p>
-                </div>
-            </div>
-          </a>
-          <a href="#">
-            <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-                <div class="container-fluid" id='item'>
-                    <img src="/photo/concrete.jpg" alt="">
-                    <p class="adress">Кам'янецька, 74</p>
-                    <p class="non-free">зайнята</p>
-                </div>
-            </div>
-          </a>
-          <a href="#">
-            <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-                <div class="container-fluid" id='item'>
-                    <img src="/photo/jojo.jpg" alt="">
-                    <p class="adress">Кам'янецька, 74</p>
-                    <p class="free">вільна</p>
-                </div>
-            </div>
+              </a>
+            <?php endforeach; ?>
 
-          </a>
-        </div>
+
+          </div>
+        <?php endforeach; ?>
+
 
     </div>
 </div>

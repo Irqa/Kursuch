@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Menu;
 
 AppAsset::register($this);
 ?>
@@ -32,23 +33,24 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-default navbar-fixed-top',
+            'id' => 'menu',
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/owner/default']],
-            ['label' => 'Adds', 'url' => ['/owner/add']],
-            ['label' => 'Deals', 'url' => ['/owner/deal']],
-            ['label' => 'Types', 'url' => ['/owner/type']],
+            ['label' => 'Головна', 'url' => ['/owner/default/index']],
+            ['label' => 'Мої площини', 'url' => ['/owner/default/places']],
+            ['label' => 'Заявки', 'url' => ['/owner/default/orders']],
+            ['label' => 'Історія', 'url' => ['/owner/default/histories']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/auth/login']]
+                ['label' => 'Увійти', 'url' => ['/auth/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->name . ')',
+                    'Вийти (' . Yii::$app->user->identity->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -59,7 +61,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid" id = 'main'>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -67,14 +69,6 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

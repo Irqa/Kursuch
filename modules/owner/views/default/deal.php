@@ -7,15 +7,16 @@ use yii\helpers\Html;
 <div class="container align-self-center">
     <div class="row center">
         <div class="col-lg-4 dealc">
-          <h1>Категорія: адреса</h1>
-          <h2>Замовник(замовник)</h2>
+          <h1><?=$add->type->name?>: <?=$add->adress?></h1>
+          <h2><?=$model->name?> (<?=$model->email?>)</h2>
           <?php $form = ActiveForm::begin([
           ]); ?>
           <?= $form->field($model, 'from')->widget(DatePicker::className(),[
           'type' => DatePicker::TYPE_INPUT,
           'options' => ['placeholder' => 'Початок оренди...'],
           'pluginOptions' => [
-              'weekStart'=>1, //неделя начинается с понедельника
+              'weekStart'=>1,
+              'format' => 'yyyy-mm-dd', //неделя начинается с понедельника
           ]
       ]); ?>
 
@@ -23,7 +24,8 @@ use yii\helpers\Html;
               'type' => DatePicker::TYPE_INPUT,
               'options' => ['placeholder' => 'Кінець оренди...'],
               'pluginOptions' => [
-                  'weekStart'=>1, //неделя начинается с понедельника
+                  'weekStart'=>1,
+                  'format' => 'yyyy-mm-dd'//неделя начинается с понедельника
               ]
           ]); ?>
 

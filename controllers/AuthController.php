@@ -53,6 +53,7 @@ class AuthController extends Controller
       if(Yii::$app->request->isPost)
       {
         $model->load(Yii::$app->request->post());
+        $model->type=0;
         if($model->signup())
         {
           return $this->redirect(['auth/login']);

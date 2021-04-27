@@ -7,17 +7,23 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 class ImageUpload extends Model{
-    
+
     public $image;
 
     public function rules()
     {
         return [
-            [['image'], 'required'],
+            // [['image'], 'required'],
             [['image'], 'file', 'extensions' => 'jpg,png']
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'image' => 'Фото',
+        ];
+    }
 
     public function uploadFile(UploadedFile $file, $currentImage)
     {

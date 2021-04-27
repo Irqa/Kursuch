@@ -1,12 +1,19 @@
-<div class="admin-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+<div class="container ">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1><?php echo Yii::$app->user->identity->name ?> </h1>
+            <p>(<?php echo Yii::$app->user->identity->email ?>)</p>
+            <h2><?php echo Yii::$app->user->identity->phone ?></h2>
+        </div>
+    <!-- </div>
+    <div class="row">
+        <a href="#">
+            <h3>Мої площини</h3>
+        </a>
+    </div>
+    <div class="row">
+        <a href="#">
+            <h3>Заявки</h3>
+        </a>
+    </div> -->
 </div>

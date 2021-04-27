@@ -1,3 +1,4 @@
+<?php use yii\helpers\Url; ?>
 <div class="container ">
     <div class="row">
         <div class="col-xs-12">
@@ -8,105 +9,74 @@
     </div>
     <!-- Мої Площини -->
     <div class="row">
-        <a href="#">
+        <a href="/owner/default/places">
             <h3>Мої площини</h3>
         </a>
     </div>
     <div class="row">
-      <a href="place">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
-            <div class="container-fluid" id='item'>
-                <img src="/photo/jojo.jpg" alt="">
-                <p class="adress">Кам'янецька, 74</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-            <div class="container-fluid" id='item'>
-                <img src="/photo/dio.jpg" alt="">
-                <p class="adress">Маршала Рибалка, 2а</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-            <div class="container-fluid" id='item'>
-                <img src="/photo/concrete.jpg" alt="">
-                <p class="adress">Кам'янецька, 74</p>
-                <p class="non-free">зайнята</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-            <div class="container-fluid" id='item'>
-                <img src="/photo/jojo.jpg" alt="">
-                <p class="adress">Кам'янецька, 74</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
+      <?php foreach ($places as $place): ?>
+        <a href="<?= Url::toRoute(['/site/contact', 'id'=>$place->id]);?>">
+          <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
+              <div class="container-fluid" id='item'>
+                  <img src="<?=$place->getImage()?>" alt="">
+                  <p class="adress"><?=$place->adress?></p>
+                  <?php if ($place->is_ordered == 0): ?>
+                    <p class="free">вільна</p>
+                    <?php else: ?>
+                    <p class="non-free">зайнята</p>
+                  <?php endif; ?>
+              </div>
+          </div>
+        </a>
+      <?php endforeach; ?>
 
-      </a>
     </div>
     <!-- Заявки -->
     <div class="row">
-        <a href="#">
+        <a href="/owner/default/orders">
             <h3>Заявки</h3>
         </a>
     </div>
     <div class="row">
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
-          <div class="container-fluid item" >
-                <img src="/photo/jojo.jpg" alt="">
-                <p class="adress">Заявник</p>
-                <p>llslsl@jsjssj.sll</p>
-                <p>1828288</p>
-                <p class="">Кам'янецька, 74</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
+      <?php foreach ($deals as $deal): ?>
+        <a href="<?= Url::toRoute(['deal', 'id'=>$deal->id]);?>">
+          <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
             <div class="container-fluid item" >
-                <img src="/photo/dio.jpg" alt="">
-                <p class="adress">Заявник</p>
-                <p>llslsl@jsjssj.sll</p>
-                <p>1828288</p>
-                <p class="">Маршала Рибалка, 2а</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-          <div class="container-fluid item" >
-                <img src="/photo/concrete.jpg" alt="">
-                <p class="adress">Заявник</p>
-                <p>llslsl@jsjssj.sll</p>
-                <p>1828288</p>
-                <p class="adress">Кам'янецька, 74</p>
-                <p class="non-free">зайнята</p>
-            </div>
-        </div>
-      </a>
-      <a href="#">
-        <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container">
-          <div class="container-fluid item" >
-                <img src="/photo/jojo.jpg" alt="">
-                <p class="adress">Заявник</p>
-                <p>llslsl@jsjssj.sll</p>
-                <p>1828288</p>
-                <p class="adress">Кам'янецька, 74</p>
-                <p class="free">вільна</p>
-            </div>
-        </div>
+                  <img src="<?=$deal->add->getImage()?>" alt="">
+                  <p class="adress"><?=$deal->name?></p>
+                  <p><?=$deal->email?></p>
+                  <p><?=$deal->phone?></p>
+                  <p class=""><?=$deal->add->adress?></p>
+                  <?php if ($deal->add_id->is_ordered == 0): ?>
+                    <p class="free">вільна</p>
+                    <?php else: ?>
+                    <p class="non-free">зайнята</p>
+                  <?php endif; ?>
+              </div>
+          </div>
+        </a>
+      <?php endforeach; ?>
 
-      </a>
+    </div>
+    <!-- Історія -->
+    <div class="row">
+        <a href="<?= Url::toRoute("histories");?>">
+            <h3>Історія</h3>
+        </a>
+    </div>
+    <div class="row">
+      <?php foreach ($history as $item): ?>
+        <a href="#">
+          <div class="col-lg-3 col-sm-3 col-xs-6" id = "i__container" >
+            <div class="container-fluid item" >
+                  <img src="<?=$item->add->getImage()?>" alt="">
+                  <p class="adress"><?=$item->add->adress?></p>
+                  <p class="">з <?=DateTime::createFromFormat('Y-m-d', $item->from)->format('d.m.Y')?> по <?=DateTime::createFromFormat('Y-m-d', $item->till)->format('d.m.Y')?></p>
+              </div>
+          </div>
+        </a>
+      <?php endforeach; ?>
+
     </div>
 
 </div>

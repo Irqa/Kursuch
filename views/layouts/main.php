@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Menu;
 
 AppAsset::register($this);
 ?>
@@ -43,8 +44,21 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Головна', 'url' => ['/site/index']],
             ['label' => 'Площини',
-             'items' => $p
+             'items' => Menu::getItems()
             ],
+
+            Yii::$app->user->isGuest ?(''):(
+            Yii::$app->user->identity->type != 0 ?(
+            Yii::$app->user->identity->type == 1 ?(
+            ['label' => 'Кабінет', 'url' => ['/owner/default']]
+            ) :(
+            ['label' => 'Кабінет', 'url' => ['/admin/default']]
+            )
+            ):(
+            ['label' => 'Кабінет', 'url' => ['/users/default']]
+            )
+            )
+            ,
             Yii::$app->user->isGuest ? (
                 ['label' => 'Увійти', 'url' => ['/auth/login']]
             ) : (
@@ -56,7 +70,7 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
         ],
     ]);
     NavBar::end();
@@ -75,7 +89,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">Зв'яжіться з нами +380621281928</p>
     </div>
 </footer>
 

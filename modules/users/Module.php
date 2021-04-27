@@ -14,6 +14,7 @@ class Module extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
+    public $layout = '/users';
     public $controllerNamespace = 'app\modules\users\controllers';
 
     public function behaviors()

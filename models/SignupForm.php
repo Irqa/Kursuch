@@ -18,6 +18,7 @@ class SignupForm extends Model
     public $email;
     public $phone;
     public $password;
+    public $type;
     /**
      * @return array the validation rules.
      */
@@ -41,6 +42,7 @@ class SignupForm extends Model
       {
         $user = new User();
         $user->attributes = $this->attributes;
+      //  $user->type = 0;
         return $user->create();
       }
     }

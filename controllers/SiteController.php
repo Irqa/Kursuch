@@ -6,6 +6,10 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use app\models\Add;
+use app\models\User;
+use app\models\Deal;
+use app\models\Type;
 use yii\filters\VerbFilter;
 use app\models\SignupForm;
 use app\models\ContactForm;
@@ -53,6 +57,22 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function CheckAdd()
+    {
+      $adds = Add::find()->all();
+      foreach ($adds as $add) {
+          $orders = Deal::find()->where(['add_id'=>$add->id])->all();
+          $add->setOrder(0);
+
+          foreach ($orders as $o) {
+            if ($o->isConfirmed == 1)
+            {
+              if($o->from <= date('Y-m-d') && $o->till >= date('Y-m-d'))
+                  $add->setOrder(1);
+            }
+          }
+      }
+    }
 
     /**
      * Displays homepage.
@@ -61,7 +81,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->CheckAdd();
+        $types = Type::find()->all();
+        foreach ($types as $type) {
+          $places = Add::find()->where(['type_id'=>$type->id])->each(4);
+          $categories[$type->name] = $places;
+        }
+        return $this->render('index',[
+            'types' => $types,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -75,16 +104,34 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
+    public function actionContact($id)
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
+        $place = Add::find()->where(['id'=>$id])->one();
+        $model = new ContactForm();
+        if(!Yii::$app->user->isGuest)
+        {
+            $user = User::find()->where(['id'=>Yii::$app->user->id])->one();
+            $model->name = $user->name;
+            $model->email = $user->email;
+            $model->phone = $user->phone;
+        }
+        if ($model->load(Yii::$app->request->post())) {
+          if(!Yii::$app->user->isGuest)
+          {
+            $user = User::find()->where(['id'=>Yii::$app->user->id])->one();
+            if($model->name == $user->name && $model->email == $user->email && $model->phone == $user->phone )
+            $model->sendForm($id,Yii::$app->user->id);
+            else
+            $model->sendForm($id);
+          }
+          else {
+            $model->sendForm($id);
+          }
             return $this->refresh();
         }
         return $this->render('contact', [
             'model' => $model,
+            'place' => $place
         ]);
     }
 
@@ -93,8 +140,14 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionCategory($id)
     {
-        return $this->render('about');
+        $this->CheckAdd();
+        $type = Type::find()->where(['id'=>$id])->one();
+        $items = Add::find()->where(['type_id'=>$id])->all();
+        return $this->render('category',[
+            'places' => $items,
+            'type' => $type,
+        ]);
     }
 }

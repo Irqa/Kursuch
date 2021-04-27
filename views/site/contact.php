@@ -10,16 +10,16 @@ use yii\captcha\Captcha;
 
 ?>
 <div class="container-fluid">
-      <h1>Категорія: адреса</h1>
+      <h1><?=$place->type->name?>: <?=$place->adress?></h1>
       <div class="row">
             <div class="photo col-xs-6">
-                  <img src="/photo/jojo.jpg" class="item-image" alt="">
+                  <img src="<?=$place->getImage()?>" class="item-image" alt="">
             </div>
             <div class="col-xs-6">
-                  <h2 class="m-0">Адреса</h2>
-                  <p>Власник</p>
+                  <h2 class="m-0"><?=$place->adress?></h2>
+                  <p><?=$place->owner_id->surname?> <?=$place->owner_id->name?></p>
                   <?php if (!Yii::$app->user->isGuest) {
-                    echo '<p>Телефон власника</p>';
+                    echo '<p>'.$place->owner_id->surname.'</p>';
                   } ?>
             </div>
             <div class="col-xs-12 pad">
